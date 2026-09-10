@@ -8,7 +8,22 @@ export function useInfiniteScroll({
   rootMargin = "300px",
 }: UseInfiniteScrollProps) {
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  const hasTriggeredRef = useRef(false);
+
+  const isFetchingRef = useRef(isFetchingNextPage);
+  const hasNextPageRef = useRef(hasNextPage);
+  const onLoadMoreRef = useRef(onLoadMore);
+
+  useEffect(() => {
+    isFetchingRef.current = isFetchingNextPage;
+  }, [isFetchingNextPage]);
+
+  useEffect(() => {
+    hasNextPageRef.current = hasNextPage;
+  }, [hasNextPage]);
+
+  useEffect(() => {
+    onLoadMoreRef.current = onLoadMore;
+  }, [onLoadMore]);
 
   useEffect(() => {
     const target = loadMoreRef.current;
@@ -19,22 +34,15 @@ export function useInfiniteScroll({
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry) {
+        if (!entry?.isIntersecting) {
           return;
-        };
+        }
 
-        if (!entry.isIntersecting) {
-          hasTriggeredRef.current = false;
+        if (!hasNextPageRef.current || isFetchingRef.current) {
           return;
-        };
+        }
 
-        if (hasTriggeredRef.current || !hasNextPage || isFetchingNextPage) {
-          return;
-        };
-
-        hasTriggeredRef.current = true;
-
-        onLoadMore();
+        onLoadMoreRef.current();
       },
       {
         rootMargin,
@@ -46,9 +54,9 @@ export function useInfiniteScroll({
     return () => {
       observer.disconnect();
     };
-  }, [hasNextPage, isFetchingNextPage, onLoadMore, rootMargin]);
+  }, [rootMargin]);
 
   return {
     loadMoreRef,
   };
-};
+}

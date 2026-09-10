@@ -1,6 +1,6 @@
 export interface ListRepoParams {
-  page: number;
   per_page: number;
+  since?: number;
 };
 
 export interface SearchRepoParams {

@@ -16,7 +16,7 @@ import {
 } from "@/services/github-service";
 
 export const useRepositories = (
-  params: Omit<ListRepoParams, "page">,
+  params: Omit<ListRepoParams, "since">,
   enabled = true,
 ) => {
   return useInfiniteQuery<GithubRepoItem[]>({
@@ -25,17 +25,19 @@ export const useRepositories = (
     queryFn: ({ pageParam }) =>
       fetchRepo({
         ...params,
-        page: pageParam as number,
+        ...(pageParam ? { since: pageParam as number } : {}),
       }),
 
-    initialPageParam: 1,
+    initialPageParam: undefined as number | undefined,
 
-    getNextPageParam: (last_page, all_pages) => {
-      if (last_page.length < params.per_page) {
+    getNextPageParam: (lastPage) => {
+      if (lastPage.length < params.per_page) {
         return undefined;
-      };
+      }
 
-      return all_pages.length + 1;
+      const lastRepo = lastPage[lastPage.length - 1];
+
+      return lastRepo?.id;
     },
 
     enabled,

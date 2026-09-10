@@ -23,7 +23,7 @@ export function useRepo() {
 
   const listQuery = useRepositories(
     {
-      per_page,
+      per_page: 100,
     },
     !hasSearch,
   );
@@ -45,9 +45,7 @@ export function useRepo() {
     ? (searchQuery.data?.pages.flatMap((page) => page.items) ?? [])
     : (listQuery.data?.pages.flat() ?? []);
 
-  const uniqueRepositories = Array.from(
-    new Map(repositories.map((repo) => [repo.id, repo])).values(),
-  );
+  const uniqueRepositories = repositories;
 
   const totalCount = hasSearch
     ? (searchQuery.data?.pages[0]?.total_count ?? 0)
