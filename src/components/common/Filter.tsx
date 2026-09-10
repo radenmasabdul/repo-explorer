@@ -34,7 +34,10 @@ export default function Filter({
       <div className="flex items-center gap-2 sm:w-52">
         <SlidersHorizontal className="h-4 w-4 shrink-0 text-muted-foreground" />
 
-        <Select value={sort} onValueChange={(v) => v && onSort(v as "stars" | "forks" | "updated")}>
+        <Select
+          value={sort}
+          onValueChange={(v) => v && onSort(v as "stars" | "forks" | "updated")}
+        >
           <SelectTrigger>
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
@@ -45,18 +48,21 @@ export default function Filter({
             <SelectItem value="updated">Recently Updated</SelectItem>
           </SelectContent>
         </Select>
+
+        <Select
+          value={order}
+          onValueChange={(v) => v && onOrder(v as "asc" | "desc")}
+        >
+          <SelectTrigger className="sm:w-32">
+            <SelectValue placeholder="Order" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectItem value="desc">Descending</SelectItem>
+            <SelectItem value="asc">Ascending</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
-
-      <Select value={order} onValueChange={(v) => v && onOrder(v as "asc" | "desc")}>
-        <SelectTrigger className="sm:w-32">
-          <SelectValue placeholder="Order" />
-        </SelectTrigger>
-
-        <SelectContent>
-          <SelectItem value="desc">Descending</SelectItem>
-          <SelectItem value="asc">Ascending</SelectItem>
-        </SelectContent>
-      </Select>
     </div>
   );
 }
