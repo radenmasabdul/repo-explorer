@@ -1,8 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-
-interface CardSkeletonProps {
-  hasImage?: boolean;
-};
+import type { CardSkeletonProps } from "@/types/components";
 
 export function CardSkeleton({
   hasImage = true,

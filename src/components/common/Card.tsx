@@ -1,16 +1,5 @@
 import { Link } from "react-router-dom";
-import type { ReactNode } from "react";
-
-interface CardProps {
-  to: string;
-  image?: ReactNode;
-  badge?: ReactNode;
-  subheader?: string;
-  title: string;
-  description?: string;
-  footer?: ReactNode;
-  className?: string;
-};
+import type { CardProps } from "@/types/components";
 
 export default function Card({
   to,
