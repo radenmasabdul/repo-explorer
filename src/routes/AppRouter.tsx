@@ -13,7 +13,10 @@ export default function AppRouter() {
         <main>
           <Routes>
             <Route path="/" element={<Repository />} />
-            <Route path="/repository/:id" element={<RepositoryDetail />} />
+            <Route
+              path="repositories/:owner/:repo"
+              element={<RepositoryDetail />}
+            />
             <Route path="/favorites" element={<Favorite />} />
           </Routes>
         </main>

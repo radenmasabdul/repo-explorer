@@ -9,7 +9,7 @@ export default function RepoCard({ repo }: RepoCardProps) {
 
   return (
     <Card
-      to={`/repository/${repo.id}`}
+      to={`/repositories/${repo.owner.login}/${repo.name}`}
       image={
         <div className="aspect-video w-full overflow-hidden bg-muted flex items-center justify-center">
           <img
