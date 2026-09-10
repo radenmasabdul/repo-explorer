@@ -54,6 +54,22 @@ export interface InfiniteScrollProps {
   onLoadMore: () => void;
 };
 
+export interface NavigationButtonProps {
+  direction?: "back" | "next";
+  to: string;
+  label: string;
+};
+
+export interface PageStateProps {
+  isLoading?: boolean;
+  isError?: boolean;
+  loadingMessage?: string;
+  errorTitle?: string;
+  errorDescription?: string;
+  backTo?: string;
+  backLabel?: string;
+};
+
 export interface ResultCountProps {
   count: number;
   isLoading?: boolean;
