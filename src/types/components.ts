@@ -1,5 +1,14 @@
 import type { ReactNode } from "react";
 
+type AlertVariant = "success" | "error" | "warning" | "info";
+
+export interface AlertProps {
+  variant?: AlertVariant;
+  title?: string;
+  description?: ReactNode;
+  className?: string;
+};
+
 export interface ApiStateProps {
   isLoading: boolean;
   isError: boolean;

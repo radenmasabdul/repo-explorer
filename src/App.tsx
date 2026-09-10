@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import AppRouter from "./routes/AppRouter";
 import { useThemeStore } from "./stores/theme-store";
+import AppRouter from "./routes/AppRouter";
+import GlobalAlert from "./components/common/Alert";
 
 export default function App() {
   const theme = useThemeStore((s) => s.theme);
@@ -9,5 +10,10 @@ export default function App() {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
   
-  return <AppRouter />;
+  return (
+    <>
+      <AppRouter />
+      <GlobalAlert />
+    </>
+  );
 };
