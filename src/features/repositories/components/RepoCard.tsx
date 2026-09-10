@@ -1,5 +1,5 @@
 import { GitFork, Heart, Star } from "lucide-react";
-import { useFavorite } from "../hooks/use-favorite";
+import { useFavorite } from "@/hooks/use-favorite";
 import type { RepoCardProps } from "../types";
 import Card from "@/components/common/Card";
 
