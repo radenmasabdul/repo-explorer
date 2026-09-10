@@ -5,8 +5,9 @@ import { useThemeStore } from "@/stores/theme-store";
 
 export default function Navbar() {
   const location = useLocation();
-  const totalFavorites = useFavoriteStore((s) => s.favorites.length);
+  const totalFavorites = useFavoriteStore((state) => state.favorites.length);
   const { theme, toggleTheme } = useThemeStore();
+  const hasFavorites = totalFavorites > 0;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -33,8 +34,14 @@ export default function Navbar() {
                 : "text-muted-foreground hover:bg-muted/60 hover:text-foreground"
             }`}
           >
-            <Heart className="h-4 w-4" />
-
+            <Heart
+              className={`h-4 w-4 transition-colors ${
+                hasFavorites
+                  ? "fill-red-500 text-red-500"
+                  : "text-muted-foreground"
+              }`}
+            />
+            
             <span className="hidden sm:inline">Favorites</span>
 
             {totalFavorites > 0 && (

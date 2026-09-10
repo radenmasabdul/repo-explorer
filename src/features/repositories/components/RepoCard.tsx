@@ -1,15 +1,15 @@
 import { GitFork, Heart, Star } from "lucide-react";
-import Card from "@/components/common/Card";
+import { useFavorite } from "../hooks/use-favorite";
 import type { RepoCardProps } from "../types";
+import Card from "@/components/common/Card";
 
-export default function RepoCard({
-  repo,
-  isFavorite,
-  onToggleFavorite,
-}: RepoCardProps) {
+export default function RepoCard({ repo }: RepoCardProps) {
+  const { isFavorite, handleToggleFavorite, handleFooterClick } =
+    useFavorite(repo);
+
   return (
     <Card
-      to={`/repo/${repo.owner.login}/${repo.name}`}
+      to={`/repository/${repo.id}`}
       image={
         <div className="aspect-video w-full overflow-hidden bg-muted flex items-center justify-center">
           <img
@@ -39,40 +39,42 @@ export default function RepoCard({
               </span>
             )}
 
-            <span className="flex items-center gap-1">
-              <Star className="h-3.5 w-3.5" />
-              {repo.stargazers_count?.toLocaleString()}
-            </span>
-
-            <span className="flex items-center gap-1">
-              <GitFork className="h-3.5 w-3.5" />
-              {repo.forks_count?.toLocaleString()}
-            </span>
-          </div>
-
-          {onToggleFavorite && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                onToggleFavorite(repo);
-              }}
-              className="rounded-md p-1 transition-colors hover:bg-muted"
-              aria-label={
-                isFavorite
-                  ? "Remove repository from favorites"
-                  : "Add repository to favorites"
-              }
+            <div
+              className="flex items-center gap-3"
+              onClick={handleFooterClick}
             >
-              <Heart
-                className={`h-4 w-4 transition-colors ${
-                  isFavorite
-                    ? "fill-current text-red-500"
-                    : "text-muted-foreground"
-                }`}
-              />
-            </button>
-          )}
+              <span className="flex items-center gap-1">
+                <Star className="h-3.5 w-3.5" />
+                {repo.stargazers_count?.toLocaleString()}
+              </span>
+
+              <span className="flex items-center gap-1">
+                <GitFork className="h-3.5 w-3.5" />
+                {repo.forks_count?.toLocaleString()}
+              </span>
+
+              <span className="flex items-center gap-1">
+                <button
+                  onClick={handleToggleFavorite}
+                  type="button"
+                  className="rounded-md p-1 transition-colors hover:bg-muted cursor-pointer"
+                  aria-label={
+                    isFavorite
+                      ? "Remove repository from favorites"
+                      : "Add repository to favorites"
+                  }
+                >
+                  <Heart
+                    className={`h-4 w-4 transition-colors ${
+                      isFavorite
+                        ? "fill-current text-red-500"
+                        : "text-muted-foreground"
+                    }`}
+                  />
+                </button>
+              </span>
+            </div>
+          </div>
         </div>
       }
     />
