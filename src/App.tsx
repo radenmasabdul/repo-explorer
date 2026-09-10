@@ -1,7 +1,13 @@
+import { useEffect } from "react";
+import AppRouter from "./routes/AppRouter";
+import { useThemeStore } from "./stores/theme-store";
+
 export default function App() {
-  return (
-    <div>
-      <h1 className="text-6xl text-red-500 font-bold underline">Hello world!</h1>
-    </div>
-  );
-}
+  const theme = useThemeStore((s) => s.theme);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+  
+  return <AppRouter />;
+};
