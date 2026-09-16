@@ -16,8 +16,6 @@
 
 Repository Explorer is a modern web application built for discovering and exploring GitHub repositories. The platform enables users to search repositories, sort and filter results, view detailed repository information, and save favorite repositories for quick access through a responsive and user-friendly interface.
 
-## 🌍 Live Demo : [Repository Explorer](https://repo-explorer-self.vercel.app/)
-
 ## 🚀 Key Features
 
 * 🔍 Search GitHub repositories with debounced search
@@ -200,74 +198,7 @@ repo-explorer/
 ├── vite.config.ts                       # Vite configuration
 └── vitest.config.ts                     # Vitest configuration
 ```
-
-## 🧠 Technical Decisions
-
-### TanStack Query for Server State
-
-TanStack Query is used to manage data from the GitHub REST API, including fetching, caching, loading states, error states, and infinite pagination.
-
-**Trade-off:** It introduces additional dependencies and abstractions compared to using `useEffect` + `useState`, but makes server state management more structured and reduces boilerplate.
-
-### Debounced Search
-
-The search function uses debouncing to reduce the number of requests while the user is typing.
-
-**Trade-off:** Search results are not updated immediately with every character typed, but this approach helps reduce unnecessary requests and is more efficient regarding GitHub's API rate limits.
-
-### Infinite Scroll
-
-The repository list uses infinite scroll to load data progressively without manual pagination.
-
-**Trade-off:** Provides a more seamless browsing experience but requires additional handling for the Intersection Observer, loading states, and pagination APIs.
-
-### Zustand for Global State
-
-Zustand is used for global state such as favorites, alert notifications, themes, and repository-related state.
-
-**Trade-off:** It requires a separate store, but its lightweight and simple API makes it easier to use compared to more complex state management solutions.
-
-### Local Storage for Favorites
-
-Favorite repositories are stored using Zustand persistence so that the data remains available after the page is refreshed.
-
-**Trade-off:** Data is stored only locally in the browser and is not synchronized across devices, but this solution suffices for the application's needs without requiring an additional backend.
-
-## 🔮 Future Improvements
-
-🌐 **More GitHub API Endpoints** — Integrate various GitHub endpoints to explore users, organizations, repositories, branches, commits, issues, pull requests, releases, contributors, topics, languages, and repository activity.
-
-👤 **User & Organization Explorer** — Add pages to view user or organization profiles, along with their repositories and activity.
-  
-📦 **Repository Insights** — Display more comprehensive information such as branches, commits, contributors, releases, languages, issues, and pull requests.
-  
-🔍 **Advanced Search** — Enhance search capabilities with combined filters based on repository, user, language, topic, stars, forks, and update timestamps.
-  
-🔗 **URL State** — Persist search queries, sorting, and filters in the URL so the state can be shared via links and maintained upon page refresh.
-  
-🔐 **GitHub Authentication** — Implement GitHub authentication to increase API rate limits and access endpoints requiring authentication.
-  
-🧪 **More Test Coverage** — Add integration and component tests for repository features, search, infinite scroll, favorites, and API interactions.
-  
-⚡ **Performance Optimization** — Optimize caching, rendering, image loading, and request management when handling large volumes of GitHub data.
-  
-♿ **Accessibility Improvements** — Improve keyboard navigation, semantic HTML, ARIA attributes, and accessibility for interactive components.
-
-## ⏱️ Estimated Development Time
-
-Approximately **10 hours**, including:
-
-* Project setup and initial architecture
-* GitHub API integration
-* Repository search and debounced input
-* Sorting and infinite scroll
-* Repository detail page
-* Favorites with localStorage persistence
-* Loading, empty, and error states
-* Responsive UI implementation
-* Global alert and theme handling
-* Unit testing
-* Final refactoring and documentation
+## 🌍 Live Demo : [Repository Explorer](https://repo-explorer-self.vercel.app/)
 
 ## 👨‍💻 Author
 
